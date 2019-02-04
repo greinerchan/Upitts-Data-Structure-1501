@@ -1,5 +1,8 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Index {
@@ -24,6 +27,38 @@ public class Index {
         }
         return tries;
     }
+
+    public void writeFile(DLB<String> historyTries, String content) {
+        BufferedWriter bw = null;
+        FileWriter fw = null;
+        try {
+            File file = new File("user_history.txt");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            fw = new FileWriter(file.getAbsoluteFile(), true);
+            bw = new BufferedWriter(fw);
+            bw.write(content + "\n");
+            historyTries.insert(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+                if (bw != null) {
+                    try {
+                        bw.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (fw != null) {
+                    try {
+                        fw.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
     /**
      * find the input word is valid.
      * @param word word

@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
@@ -178,11 +177,11 @@ public class DLB<T> implements DLBInterface<T> {
         if (firstNode == null) {
             return null;
         }
-        collect(firstNode, new StringBuilder(prefix), results);
+        collect(firstNode, prefix, results);
         results = deleteRedundant(results);
         return results;
     }
-    private void collect (Node cur, StringBuilder prefix, Queue<String> results) {
+    private void collect(Node cur, String prefix, Queue<String> results) {
         // case 0, predictions shouldn't bigger than 5.
           if (results.size() > 15) {
               return;
@@ -194,25 +193,22 @@ public class DLB<T> implements DLBInterface<T> {
           // case 2, if current char is not the last.
           if (cur.data != '^') {
               cur = cur.child;
-              prefix.append(cur.data);
+              prefix = prefix + cur.data;
               collect(cur, prefix, results);
           }
           // case 3, if current char has peer.
-         while (cur.peer != null) {
+          while (cur.peer != null) {
               cur = cur.peer;
-              String s = prefix.toString();
-              s = s.substring(0, s.length() - 1);
-              StringBuilder prefixx = new StringBuilder(s);
-              prefixx.append(cur.data);
-              collect(cur, prefixx, results);
+              prefix = prefix.substring(0, prefix.length() - 1);
+              prefix = prefix + cur.data;
+              collect(cur, prefix, results);
           }
           return;
     }
-    private Queue<String> deleteRedundant (Queue<String> queue) {
+    private Queue<String> deleteRedundant(Queue<String> queue) {
         if (queue == null || queue.size() == 0) {
             return null;
         }
-        //String[] str = new String[26];
         String[] noRepeat = new String[26];
         int count = 0;
         while (!queue.isEmpty()) {
@@ -280,37 +276,5 @@ public class DLB<T> implements DLBInterface<T> {
             peer = p;
             child = c;
         }
-    }
-    public static void main(String[] args) throws IOException {
-        Index index = new Index();
-        String inputFile = "dictionary.txt";
-        DLB<String> tries = index.buildIndex(inputFile);
-//        DLB<String> tries = new DLB<String>();
-//        tries.insert("ABC");
-//        tries.insert("ADEF");
-//        tries.insert("AFI");
-//        tries.insert("AHJ");
-//
-//          tries.insert("ABCD");
-//          tries.insert("AEFW");
-//          tries.insert("AEGH");
-//          tries.insert("AEMN");
-//          tries.insert("AEMOP");
-
-//        if (tries.searchWord("Aaaa")) {
-//            System.out.println("caonima");
-//        } else {
-//            System.out.println("lajibadao");
-//        }
-//        Node a = tries.getFirstSuffix("Technicol");
-//        if (a == null) {
-//            System.out.println("null");
-//        } else if (a != null) {
-//            System.out.println(a.data);
-//        }
-        Queue a = (Queue) tries.keysWithPrefix("s");
-        Node aa = tries.getLastChar("s");
-        System.out.println(aa.data);
-        System.out.println(a);
     }
 }
