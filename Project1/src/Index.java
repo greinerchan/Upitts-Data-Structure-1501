@@ -4,8 +4,17 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-
+/**
+ * do something with the trie.
+ * @author Xi Chen
+ *
+ */
 public class Index {
+    /**
+     * build the tries with dictionary.
+     * @param fileName file name
+     * @return DLB tries.
+     */
     public DLB<String> buildIndex(String fileName) {
         DLB<String> tries = new DLB<String>();
         Scanner scanner = null;
@@ -27,7 +36,11 @@ public class Index {
         }
         return tries;
     }
-
+    /**
+     * write word to the user_history.txt.
+     * @param historyTries DLB tries for history enter word
+     * @param content word to add.
+     */
     public void writeFile(DLB<String> historyTries, String content) {
         BufferedWriter bw = null;
         FileWriter fw = null;

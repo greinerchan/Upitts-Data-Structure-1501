@@ -1,23 +1,36 @@
 import java.util.ArrayDeque;
 import java.util.Queue;
 
+/**
+ * DLB tries implementation.
+ * @author Xi Chen
+ * @Id xic111
+ * @param <T>
+ */
 public class DLB<T> implements DLBInterface<T> {
-    private static final char end = '^';
+    /**
+     * the end of word symbol is ^.
+     */
+    private static final char END = '^';
+    /**
+     * root of tries.
+     */
     private Node<T> root;
-
+    /**
+     * default constructor.
+     */
     public DLB() {
         root = new Node<T>();
     }
-
-    @Override
-    public T searchPrefix(T toSearch) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public void print() {
-        System.out.println(root.child.peer.child.data);
-    }
+    /**
+     * the maximum prediction size should be 5.
+     */
+    private static final int PREDICTIONSIZE = 5;
+    /**
+     * search the word to check if it is in tries.
+     * @param word word to check.
+     * @return in or not
+     */
     public boolean searchWord(String word) {
         if (word == null || word.length() == 0) {
             return false;
@@ -30,7 +43,8 @@ public class DLB<T> implements DLBInterface<T> {
             //cur and peers no data
             if (cur.data != c && !isPeerContains(cur, c)) {
                 return false;
-            } else if (cur.data != c && isPeerContains(cur, c)) { // cur not have peers have
+            } else if (cur.data != c
+                    && isPeerContains(cur, c)) { // cur not have peers have
                 while (cur.data != c) {
                     cur = cur.peer;
                 }
@@ -52,13 +66,16 @@ public class DLB<T> implements DLBInterface<T> {
         }
         return false;
     }
+    /**
+     * insert the word to the trie.
+     */
     @Override
     public void insert(T toInsert) {
         if (toInsert == null) {
             return;
         }
         StringBuilder sb = new StringBuilder();
-        sb.append(toInsert).append(end);
+        sb.append(toInsert).append(END);
         Node cur = root;
         char[] word = sb.toString().toCharArray();
         if (word.length == 0) {
@@ -68,25 +85,32 @@ public class DLB<T> implements DLBInterface<T> {
             cur = insertHelper(cur, c);
         }
     }
+    /**
+     * helper method for inserting the word.
+     * @param cur cur node.
+     * @param c char to insert
+     * @return next empty node
+     */
     private Node insertHelper(Node cur, char c) {
         //case 0, cur is empty
         if (cur.data == ' ') {
             cur.data = c;
             cur.child = new Node();
             cur = cur.child;
-        }
-        //case 1, cur is not empty and have same data
-        else if (cur.data != ' ' && cur.data == c) {
+          //case 1, cur is not empty and have same data
+        } else if (cur.data != ' ' && cur.data == c) {
             cur = cur.child;
-        }
-        //case 2, cur is not empty and have different data and have not peers
-        else if (cur.data != ' ' && cur.data != c && cur.peer == null) {
+          //case 2, cur is not empty and have different data and have not peers
+        } else if (cur.data != ' ' && cur.data != c && cur.peer == null) {
             cur.peer = new Node(c);
             cur.peer.child = new Node();
             cur = cur.peer.child;
-        }
-        //case 3, cur is not empty and have different data and has peers and peers not same value.
-        else if (cur.data != ' ' && cur.data != c && !isPeerContains(cur, c)) {
+        /*
+         * case 3, cur is not empty and have different data a
+         * node has peers and peers not same value.
+         */
+        } else if (cur.data != ' '
+                && cur.data != c && !isPeerContains(cur, c)) {
             cur.peer = addLastPear(cur.peer, c);
             while (cur.data != c) {
                 cur = cur.peer;
@@ -94,9 +118,11 @@ public class DLB<T> implements DLBInterface<T> {
             cur.child = new Node();
             cur = cur.child;
             return cur;
-        }
-        //case 4, cur is not empty and have different data and has peers and peers has same value.
-        else if (cur.data != ' ' && cur.data != c && isPeerContains(cur, c)) {
+        /*
+         * case 4, cur is not empty and have different data
+         * and has peers and peers has same value.
+         */
+        } else if (cur.data != ' ' && cur.data != c && isPeerContains(cur, c)) {
             while (cur.data != c) {
                 cur = cur.peer;
             }
@@ -105,6 +131,12 @@ public class DLB<T> implements DLBInterface<T> {
         }
         return cur;
     }
+    /**
+     * add to the last node for peers linkedlist.
+     * @param cur current node
+     * @param c char to add
+     * @return head node.
+     */
     private Node addLastPear(Node cur, char c) {
         if (cur == null) {
             cur = new Node(c);
@@ -114,6 +146,12 @@ public class DLB<T> implements DLBInterface<T> {
         cur.peer = addLastPear(cur.peer, c);
         return cur;
     }
+    /**
+     * check if the peers node has the same value.
+     * @param cur current node
+     * @param c char to search
+     * @return is exist?
+     */
     private boolean isPeerContains(Node cur, char c) {
         while (cur != null) {
             if (cur.data == c) {
@@ -123,6 +161,11 @@ public class DLB<T> implements DLBInterface<T> {
         }
         return false;
     }
+    /**
+     * get last char node of the prefix.
+     * @param prefix prefix
+     * @return last char of prefix node
+     */
     public Node getLastChar(String prefix) {
         if (prefix == null || prefix.length() == 0) {
             return null;
@@ -136,24 +179,33 @@ public class DLB<T> implements DLBInterface<T> {
             count++;
             if (cur.data == ' ') {
                 return null;
-            }
-            //case 3, cur is not empty and have different data and have not peers
-            else if (cur.data != ' ' && cur.data != c && cur.peer == null) {
+                /*
+                 *case 1, cur is not empty and
+                 *have different data and have not peers
+                 */
+            } else if (cur.data != ' ' && cur.data != c && cur.peer == null) {
                 return null;
-            }
-            //case 4, cur is not empty and have different data and has peers and peers not same value.
-            else if (cur.data != ' ' && cur.data != c && !isPeerContains(cur, c)) {
+                /*
+                 * case 2, cur is not empty and have
+                 * different data and has peers and peers not same value.
+                 */
+            } else if (cur.data != ' ' && cur.data != c
+                    && !isPeerContains(cur, c)) {
                 return null;
-            }
-            else if (cur.data != ' ' && cur.data == c && count == len) {
+                /*
+                 * case 3, already find the last char node.
+                 */
+            } else if (cur.data != ' ' && cur.data == c && count == len) {
                 return cur;
-            }
-            //case 2, cur is not empty and have same data
-            else if (cur.data != ' ' && cur.data == c) {
+                //case 4, cur is not empty and have same data
+            } else if (cur.data != ' ' && cur.data == c) {
                 cur = cur.child;
-            }
-            //case 5, cur is not empty and have different data and has peers and peers has same value.
-            else if (cur.data != ' ' && cur.data != c && isPeerContains(cur, c)) {
+                /*
+                 * case 5, cur is not empty and have different data
+                 * and has peers and peers has same value.
+                 */
+            } else if (cur.data != ' ' && cur.data != c
+                    && isPeerContains(cur, c)) {
                 //System.out.println(count);
                 while (cur.data != c) {
                     cur = cur.peer;
@@ -167,8 +219,12 @@ public class DLB<T> implements DLBInterface<T> {
         }
         return cur;
     }
+    /**
+     * find the predictions of the certain prefix.
+     */
+    @Override
     public Iterable<String> keysWithPrefix(String prefix) {
-        Queue<String> results = new ArrayDeque<String>(5);
+        Queue<String> results = new ArrayDeque<String>();
 
         if (prefix == null || prefix.length() == 0) {
             return null;
@@ -181,8 +237,14 @@ public class DLB<T> implements DLBInterface<T> {
         results = deleteRedundant(results);
         return results;
     }
+    /**
+     * helper method for finding the predictions.
+     * @param cur current node.
+     * @param prefix word prefix
+     * @param results predictions.
+     */
     private void collect(Node cur, String prefix, Queue<String> results) {
-        // case 0, predictions shouldn't bigger than 5.
+        // case 0, get enough predictions.
           if (results.size() > 15) {
               return;
           }
@@ -205,6 +267,11 @@ public class DLB<T> implements DLBInterface<T> {
           }
           return;
     }
+    /**
+     * delete the repeated element in queue.
+     * @param queue predictions
+     * @return predictions without repeated value
+     */
     private Queue<String> deleteRedundant(Queue<String> queue) {
         if (queue == null || queue.size() == 0) {
             return null;
@@ -218,20 +285,27 @@ public class DLB<T> implements DLBInterface<T> {
         int num = noRepeat.length;
         for (int i = 0; i < num - 1; i++) {
             for (int j = i + 1; j < num; j++) {
-                if (noRepeat[i] != null && noRepeat[j] != null && noRepeat[i].equals(noRepeat[j])) {
+                if (noRepeat[i] != null && noRepeat[j] != null
+                        && noRepeat[i].equals(noRepeat[j])) {
                     noRepeat = delete(noRepeat, j);
                     j--;
                     num--;
                 }
             }
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < PREDICTIONSIZE; i++) {
             if (noRepeat[i] != null) {
                 queue.offer(noRepeat[i]);
             }
         }
         return queue;
     }
+    /**
+     * delete a value in a string array.
+     * @param data string array input
+     * @param pos index
+     * @return string array
+     */
     public String[] delete(String[] data, int pos) {
         if (pos >= 0 && pos < data.length) {
             String[] tmp = new String[data.length - 1];
@@ -241,6 +315,12 @@ public class DLB<T> implements DLBInterface<T> {
             }
         return data;
     }
+    /**
+     * nested class for node.
+     * @author Xi Chen
+     *
+     * @param <T> generic type
+     */
     private static class Node<T> {
         /**
          * data.
@@ -255,8 +335,8 @@ public class DLB<T> implements DLBInterface<T> {
          */
         private Node<T> child;
         /**
-         * constructor of the node with only value.
-         * @param d data
+         * constructor of the node with empty value.
+         *
          */
         Node() {
             this(' ', null, null);
@@ -265,11 +345,11 @@ public class DLB<T> implements DLBInterface<T> {
             this(d, null, null);
         }
         /**
-         * Node element arrtibute.
+         * Node element arribute.
          * @param d data
-         * @param p parent Node
+         * @param p peer Node
          * @param c child Node
-         * @param existed is char existed?
+         *
          */
         Node(char d, Node<T> p, Node<T> c) {
             data = d;
