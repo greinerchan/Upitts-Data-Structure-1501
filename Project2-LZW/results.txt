@@ -1,0 +1,99 @@
+FileName                  mode            compressed Size(Bytes)              Compression ratio
+
+Original(3,031,040)                        
+all.tar					  - n                  1,792,781                           1.691
+all.tar					  - m                  1,819,874                           1.666
+all.tar					  - r                  1,178,221                           2.573
+all.tar					  -                    1,846,854                           1.641
+all.tar					  ZIP				   969,796	                           3.125
+
+Original(87,040)
+assig2.doc				  - n                  40,040                              2.174
+assig2.doc				  - m                  40,040                              2.174
+assig2.doc				  - r                  40,040                              2.174
+assig2.doc				  -                    74,574                              1.167
+assig2.doc				  ZIP                  23,336                              3.730
+
+Original(1,105,920)
+bmps.tar				  - n                  80,913                              13.668
+bmps.tar				  - m                  80,913                              13.668
+bmps.tar                  - r                  80,913                              13.668
+bmps.tar                  -	                   925,079                             1.195
+bmps.tar                  ZIP                  64,361                              17.183
+
+Original(72,351)
+code.txt                  - n                  24,545                              2.948
+code.txt                  - m                  24,545                              2.948  
+code.txt                  - r                  24,545                              2.948
+code.txt                  -                    30,980                              2.335
+code.txt                  ZIP                  15,920                              4.545
+
+Original(57,701)
+code2.txt                 - n                  20,516                              2.812
+code2.txt                 - m                  20,516                              2.812
+code2.txt                 - r                  20,516                              2.812
+code2.txt                 -                    24,138                              2.390
+code2.txt                 ZIP                  14,226                              4.056
+
+Original(236,328)
+edit.exe				  - n                  156,409                             1.511
+edit.exe				  - m                  156,409                             1.511
+edit.exe				  - r                  152,227                             1.552
+edit.exe				  -                    250,742                             0.943
+edit.exe			      ZIP                  127,373                             1.855
+
+Original(126,748)                
+frosty.jpg				  - n	               163,789                             0.774
+frosty.jpg				  - m                  163,789                             0.774
+frosty.jpg				  - r                  171,170                             0.74
+frosty.jpg				  -                    177,453                             0.714
+frosty.jpg				  ZIP                  126,796                             1
+
+Original(17,336)
+gone_fishing.bmp          - n                  8,963                               1.934
+gone_fishing.bmp          - m                  8,963                               1.934
+gone_fishing.bmp          - r                  8,963                               1.934
+gone_fishing.bmp          -                    9,278                               1.869
+gone_fishing.bmp          ZIP                  9,405                               1.843
+
+Original(1,220,703)
+large.txt				  - n                  501,777                             2.433
+large.txt	              - m                  501,777                             2.433
+large.txt	              - r                  527,506                             2.314
+large.txt	              -                    605,184                             2.017
+large.txt	              ZIP                  493,754                             2.472
+
+Original(93,371)
+Lego-big.gif              - n                  122,493                             0.762
+Lego-big.gif              - m                  122,493                             0.762
+Lego-big.gif              - r                  122,493                             0.762
+Lego-big.gif              -                    128,973                             0.724
+Lego-big.gif              ZIP                  93,215                              1.002
+
+Original(25,407)
+medium.txt                - n                  12,531                              2.028
+medium.txt                - m                  12,531                              2.028
+medium.txt                - r                  12,531                              2.028
+medium.txt                -                    13,197                              1.925
+medium.txt                ZIP                  11,536                              2.202
+
+Original(1,382,400)
+texts.tar                 - n                  597,847                             2.312
+texts.tar                 - m                  597,847                             2.312
+texts.tar                 - r                  590,475                             2.341
+texts.tar                 -                    1,012,179                           1.366
+texts.tar                 ZIP                  534,058                             2.588
+
+Original(921,654)
+wacky.bmp                 - n                  3,951                               233.271
+wacky.bmp                 - m                  3,951                               233.271
+wacky.bmp                 - r                  3,951                               233.271
+wacky.bmp                 -                    4,302                               214.238
+wacky.bmp                 ZIP                  3,676                               250.722
+
+Original(157,044)
+winnt256.bmp              - n                  62,931                              2.495
+winnt256.bmp              - m                  62,931                              2.495
+winnt256.bmp              - r                  62,931                              2.495
+winnt256.bmp              -                    159,050                             0.987
+winnt256.bmp              ZIP                  50,595                              3.104
